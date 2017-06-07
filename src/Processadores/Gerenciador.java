@@ -6,9 +6,13 @@ import util.Processo;
 
 public class Gerenciador {
 	final int RETRY = 2;
-	public static int NUM_PROCESSORS = 3;
+	public int nProc_ = 3;
 	
 	Vector<Processador> proc_;
+	
+	public Gerenciador(int nProc){
+		nProc_ = nProc;
+	}
 	
 	int getTempoDeProcessamentoTotal () {
 		int sum = 0;
@@ -26,7 +30,7 @@ public class Gerenciador {
 	
 	public void printStatus() {
 		System.out.println("===============================================");
-		for (int i = 0; i < NUM_PROCESSORS; i++) {
+		for (int i = 0; i < nProc_; i++) {
 			System.out.println("Processador " + (i + 1));
 			proc_.get(i).printStatus();
 			System.out.println("");
@@ -38,7 +42,7 @@ public class Gerenciador {
 		System.out.println("===============================================");
 		System.out.println("Tempo de processamento total = " + getTempoDeProcessamentoTotal());
 		int numProc = 0;
-		for (int i = 0; i < NUM_PROCESSORS; i++) {
+		for (int i = 0; i < nProc_; i++) {
 			numProc += proc_.get(i).getNumProcessos();
 		}
 		System.out.println("Número total de processos = " + numProc);
@@ -52,5 +56,19 @@ public class Gerenciador {
 							+ proc_.elementAt(antCPU).getTempoProcessamento());
 		System.out.println("Tempo de Processamento CPU " + novaCPU + " = "
 				+ proc_.elementAt(novaCPU).getTempoProcessamento());
+	}
+	
+	public void addProcess (Processo p) {
+		proc_.elementAt(p.cpu_).addProcess(p);
+	}
+	
+	public void update() {
+		for (int i = 0; i < nProc_; i++)
+			proc_.elementAt(i).update(this);
+	}
+
+	public boolean tryReceiveProcess(int numProcessador) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

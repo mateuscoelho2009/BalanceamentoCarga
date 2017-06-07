@@ -6,29 +6,21 @@ import java.util.Vector;
 import util.Processo;
 
 public class GerenciadorHEmissor extends Gerenciador {
-	public GerenciadorHEmissor() {
+	public GerenciadorHEmissor(int numProc) {
+		super(numProc);
 		proc_ = new Vector<Processador>();
-		for (int i = 0; i < NUM_PROCESSORS; i++) {
-			proc_.add(new ProcessadorEmissor());
+		for (int i = 0; i < nProc_; i++) {
+			proc_.add(new ProcessadorEmissor(i));
 		}
-	}
-	
-	public void addProcess (Processo p) {
-		proc_.elementAt(p.cpu_).addProcess(p);
-	}
-	
-	public void update() {
-		for (int i = 0; i < NUM_PROCESSORS; i++)
-			proc_.elementAt(i).update(this);
 	}
 	
 	@Override
 	public boolean tryPassProcess (Processo p) {
 		Random rand = new Random();
 		for (int i = 1; i <= RETRY; i++) {
-			int r = rand.nextInt(NUM_PROCESSORS);
+			int r = rand.nextInt(nProc_);
 			
-			while (r == p.cpu_) r = rand.nextInt(NUM_PROCESSORS);
+			while (r == p.cpu_) r = rand.nextInt(nProc_);
 			
 			float coef = proc_.elementAt(r).getTempoProcessamento() / getTempoDeProcessamentoTotal();
 			if (coef < Processador.LIMIT_MIN) {

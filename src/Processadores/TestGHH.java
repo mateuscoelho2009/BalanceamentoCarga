@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import util.Processo;
 
-public class TestGHE {
-	GerenciadorHEmissor ghe_ = new GerenciadorHEmissor(3);
+public class TestGHH {
+	GerenciadorHibrido ghh_ = new GerenciadorHibrido(3);
 
 	@Test
 	public void test() {
@@ -19,15 +19,15 @@ public class TestGHE {
 		for (int i = 0; i < NUMITER; i++) {
 			System.out.println("Iteração " + i);
 			//ghe_.printStatus();
-			ghe_.printSimpleStatus();
+			ghh_.printSimpleStatus();
 			
 			if (i%2 == 0)
-				ghe_.addProcess(new Processo(rand.nextInt(ghe_.nProc_),
+				ghh_.addProcess(new Processo(rand.nextInt(ghh_.nProc_),
 											 i,
 											 rand.nextInt(10) + 1));
 			
-			ghe_.update();
+			ghh_.update();
 		}
 	}
-
+	
 }

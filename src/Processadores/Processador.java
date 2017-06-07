@@ -8,10 +8,12 @@ import util.Processo;
 public class Processador {
 	static float LIMIT_MAX = .4f, LIMIT_MIN = .1f; // Métrica será de tempo de processamento necessário
 	
+	int nProcessador;	
 	LinkedList<Processo> processos;
 	
-	public Processador () {
+	public Processador (int numProcessador) {
 		processos = new LinkedList<Processo>();
+		nProcessador = numProcessador;
 	}
 	
 	public int getTempoProcessamento () {
@@ -45,5 +47,10 @@ public class Processador {
 	
 	public int getNumProcessos() {
 		return processos.size();
+	}
+
+	public Processo receiveLastProcess() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
